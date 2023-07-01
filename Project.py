@@ -85,6 +85,36 @@ def offical_login(index):
         logout.grid(row=7,column=1)
 
 
+    #UpdateFrame
+    def UpdateDetails(userid_value):
+        offical_login_frame.destroy()
+        
+
+        #back button
+        def backfun():
+            update_frame.destroy()
+            offical_login(index)
+
+        #logout button
+        def logoutfun():
+            update_frame.destroy()
+            OfficalWindow()
+
+        update_frame=LabelFrame(root,text="Update Records",padx=40,pady=40)
+        update_frame.grid(padx=300,pady=150)
+
+        add=Button(update_frame,text="New Record",padx=7)
+        add.grid(row=0,column=0,padx=20,pady=15)
+
+        edit=Button(update_frame,text="Edit Record",padx=10)
+        edit.grid(row=1,column=0,padx=20,pady=15)
+
+        back=Button(update_frame,text="Back",padx=26,command=backfun)
+        back.grid(row=2,column=0,padx=20,pady=15)
+
+        logout=Button(update_frame,text="LOG OUT",padx=15,command=logoutfun)
+        logout.grid(row=3,column=0,padx=20,pady=15)
+
 
 
 
@@ -95,7 +125,7 @@ def offical_login(index):
     view=Button(offical_login_frame,text="View Details",padx=7.5,pady=5)
     view.grid(row=0,column=0,padx=20,pady=10)
 
-    update=Button(offical_login_frame,text="Update",padx=20,pady=5)
+    update=Button(offical_login_frame,text="Update",padx=20,pady=5,command= lambda :UpdateDetails(userid_value))
     update.grid(row=1,column=0,padx=20,pady=10)
 
     profile=Button(offical_login_frame,text="View Profile",padx=8,pady=5,command=profilefun)
