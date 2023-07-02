@@ -1,6 +1,6 @@
 from tkinter import *
 import Personal as P
-import mysql
+import mysql.connector
 from tkinter import messagebox
 from AdditionalFunctions import checkPhoneNumber
 root=Tk()
@@ -18,9 +18,73 @@ def personalWindow():
 
     personalframe=LabelFrame(root,text="Personal Access",padx=60,pady=30)
     personalframe.grid(padx=w//5,pady=h//6)
+    
+    
+    
+
+    def personalLogin():
+
+        #Database Connection
+        address=mysql.connector.connect(host="localhost",user="root",passwd="Charan@2023",database="python")
+        mycursor=address.cursor()
+
+        mycursor.execute("select * from userdetails")
+        userlogindetails=[x[3]for x in mycursor]
+        mycursor.execute("select * from userdetails")
+        passwdlogindetails=[x[5] for x in mycursor]
+    
+        login=Tk()
+        login.title("Log in")
+        login.geometry('250x200+100+100')
+        login.resizable(False,False)
+
+        useridlb=Label(login,text="User id : ")
+        useridlb.grid(row=0,column=0,padx=(20,0))
+
+        global userid
+        userid=StringVar()
+        userid=Entry(login)
+        userid.grid(row=0,column=1,pady=10,columnspan=2)
+
+        passwdlb=Label(login,text="Password : ")
+        passwdlb.grid(row=1,column=0,padx=(20,0))
+
+        global passwd
+        passwd=StringVar()
+        passwd=Entry(login)
+        passwd.grid(row=1,column=1,pady=10,columnspan=2)
+
+        def getdetails():
+            global userid
+            global passwd
+            useridvalue=userid.get()
+            passwdvalue=passwd.get()
+            
+            login.destroy()
+            if(useridvalue in userlogindetails):
+                index=userlogindetails.index(useridvalue)
+                if(passwdvalue == passwdlogindetails[index]):
+                    pass
+                else:
+                    messagebox.showerror("Access Denied","Entered a Wrong Password")
+            else:
+                messagebox.showerror("Wrong Detail","User Name Not Found")
+
+        def clearfun():
+            global userid
+            global passwd
+
+            userid.delete(0,END)
+            passwd.delete(0,END)
+
+        submit=Button(login,text="Submit",command=getdetails)
+        clear=Button(login,text="Clear",command=clearfun)
+        submit.grid(row=2,column=1,pady=20,padx=20)
+        clear.grid(row=2,column=2)
 
 
-    login=Button(personalframe,text="LOG IN",padx=5,command=P.personalLogin)
+
+    login=Button(personalframe,text="LOG IN",padx=5,command=personalLogin)
     login.grid(padx=5,pady=5)
 
     signup=Button(personalframe,text="SIGN UP",padx=2,command=P.personalSignup)
@@ -29,7 +93,7 @@ def personalWindow():
     def goback():
         personalframe.destroy()
         OpenWindow()
-    back=Button(personalframe,text="Back",padx=6,command=goback)
+    back=Button(personalframe,text="Back",padx=11,command=goback)
     back.grid(padx=5,pady=5)
 
 def offical_login(index):
@@ -46,7 +110,9 @@ def offical_login(index):
     def backfun():
         offical_login_frame.destroy()
         OfficalWindow()
+    
 
+    #View profile Details
     def profilefun():
         offical_login_frame.destroy()
         profile_frame=LabelFrame(root,text="Profile Details",padx=20,pady=20)
@@ -83,6 +149,42 @@ def offical_login(index):
 
         logout=Button(profile_frame,text="LOG OUT",padx=7,command=logoutfun)
         logout.grid(row=7,column=1)
+    
+
+    #View Details
+    def viewdetails(userid_value):
+
+        #back button
+        def backfun():
+            viewdetails_frame.destroy()
+            offical_login(index)
+
+        #logout button
+        def logoutfun():
+            viewdetails_frame.destroy()
+            OfficalWindow()
+
+
+
+        offical_login_frame.destroy()
+
+        viewdetails_frame=LabelFrame(root,text=f'View Details of {userid_value}',padx=40,pady=40)
+        viewdetails_frame.grid(padx=300,pady=150)
+
+        table=Button(viewdetails_frame,text="Tables",padx=18)
+        table.grid(row=0,column=0,padx=20,pady=15)
+
+        chart=Button(viewdetails_frame,text="Chart",padx=20)
+        chart.grid(row=1,column=0,padx=20,pady=15)
+
+        back=Button(viewdetails_frame,text="Back",padx=22,command=backfun)
+        back.grid(row=2,column=0,padx=20,pady=15)
+
+        logout=Button(viewdetails_frame,text="LOG OUT",padx=10,command=logoutfun)
+        logout.grid(row=3,column=0,padx=20,pady=15)
+
+
+
 
 
     #UpdateFrame
@@ -122,7 +224,7 @@ def offical_login(index):
     offical_login_frame=LabelFrame(root,text=userid_value,padx=40,pady=20)
     offical_login_frame.grid(padx=300,pady=200)
 
-    view=Button(offical_login_frame,text="View Details",padx=7.5,pady=5)
+    view=Button(offical_login_frame,text="View Details",padx=7.5,pady=5,command=lambda : viewdetails(userid_value))
     view.grid(row=0,column=0,padx=20,pady=10)
 
     update=Button(offical_login_frame,text="Update",padx=20,pady=5,command= lambda :UpdateDetails(userid_value))
@@ -215,7 +317,7 @@ def OfficalWindow():
     submit.grid(row=2,column=2,padx=5,pady=5)
 
 
-
+#openin page of the Application 
 
 def OpenWindow():
 
@@ -234,6 +336,7 @@ def OpenWindow():
     offical=Button(firstpage,text="Offical",padx=10,pady=5,command=OfficalWindow)
     offical.grid(row=1,column=0,padx=10,pady=10)
 
+#first statement to run the application
 OpenWindow()
 
 

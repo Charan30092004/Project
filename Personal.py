@@ -12,7 +12,7 @@ from AdditionalFunctions import checkpassword
 address=mysql.connector.connect(host="localhost",user="root",passwd="Charan@2023",database="python")
 mycursor=address.cursor()
 
-def personalLogin():
+"""def personalLogin():
 
     mycursor.execute("select * from userdetails")
     userlogindetails=[x[3]for x in mycursor]
@@ -67,7 +67,7 @@ def personalLogin():
     clear=Button(login,text="Clear",command=clearfun)
     submit.grid(row=2,column=1,pady=20,padx=20)
     clear.grid(row=2,column=2)
-
+"""
 def personalSignup():
 
     def clearfun():
