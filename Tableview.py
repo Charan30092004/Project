@@ -2,11 +2,6 @@ from tkinter import *
 from tkinter import ttk
 import mysql.connector
 
-root=Tk()
-w=root.winfo_screenwidth()
-h=root.winfo_screenheight()
-root.geometry(f'{w}x{h}')
-root.title("Vehicle Data ")
 
 
 
@@ -62,6 +57,12 @@ def tableshow(data):
 
 
 def tableview(tn):
+    w=root.winfo_screenwidth()
+    h=root.winfo_screenheight()
+    root.geometry(f'{w}x{h}')
+    root.title("Vehicle Data ")
+
+
     address=mysql.connector.connect(host="localhost",user="root",passwd="Charan@2023",database="Python")
     mycursor=address.cursor()
     mycursor.execute('select * from maintable')
@@ -72,4 +73,3 @@ def tableview(tn):
 
 
 
-root.mainloop()

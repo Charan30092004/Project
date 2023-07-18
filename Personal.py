@@ -119,7 +119,7 @@ def personalSignup():
 
     signup=Tk()
     signup.title("Sign Up")
-    signup.geometry('300x300+100+100')
+    signup.geometry('350x300+100+100')
     signup.resizable(False,False)
 
     global name 

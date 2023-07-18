@@ -1,9 +1,12 @@
+
 from tkinter import *
+import ttkbootstrap as ttk
 import Personal as P
+from PIL import Image,ImageTk
 import mysql.connector
 from tkinter import messagebox
 from AdditionalFunctions import checkPhoneNumber
-root=Tk()
+root=ttk.Window()
 
 
 def personalWindow():
@@ -35,7 +38,7 @@ def personalWindow():
     
         login=Tk()
         login.title("Log in")
-        login.geometry('250x200+100+100')
+        login.geometry('300x200+100+100')
         login.resizable(False,False)
 
         useridlb=Label(login,text="User id : ")
