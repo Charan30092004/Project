@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 import mysql.connector
 
 
@@ -7,8 +6,8 @@ import mysql.connector
 
 
 
-def tableshow(data):
-
+def tableshow(data,root):
+    
     mainframe=Frame(root)
     mainframe.pack(fill=BOTH,expand=1)
 
@@ -33,7 +32,7 @@ def tableshow(data):
 
     my_canvas.create_window((0,0),window=second_frame,anchor='nw')
 
-
+    from tkinter import ttk
     table=ttk.Treeview(second_frame,columns=('s.no','no','currentowner','model','fuel','ownerNumber','type','address','insurance','NumberofOwner'),show='headings')
     table.pack()
     table.heading("s.no",text="Serial Number")
@@ -57,6 +56,7 @@ def tableshow(data):
 
 
 def tableview(tn):
+    root=Tk()
     w=root.winfo_screenwidth()
     h=root.winfo_screenheight()
     root.geometry(f'{w}x{h}')
@@ -68,7 +68,7 @@ def tableview(tn):
     mycursor.execute('select * from maintable')
     data=[x for x in mycursor if x[2][:4]==tn]
     print(data)
-    tableshow(data)
+    tableshow(data,root)
 
 
 

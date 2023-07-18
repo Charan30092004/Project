@@ -4,7 +4,10 @@ import ttkbootstrap as ttk
 import Personal as P
 from PIL import Image,ImageTk
 import mysql.connector
+from Tableview import *
 from tkinter import messagebox
+
+from userdetails import *
 from AdditionalFunctions import checkPhoneNumber
 root=ttk.Window()
 
@@ -174,7 +177,7 @@ def offical_login(index):
         viewdetails_frame=LabelFrame(root,text=f'View Details of {userid_value}',padx=40,pady=40)
         viewdetails_frame.grid(padx=300,pady=150)
 
-        table=Button(viewdetails_frame,text="Tables",padx=18)
+        table=Button(viewdetails_frame,text="Tables",padx=18,command=lambda : tableview(userid_value))
         table.grid(row=0,column=0,padx=20,pady=15)
 
         chart=Button(viewdetails_frame,text="Chart",padx=20)
@@ -208,7 +211,7 @@ def offical_login(index):
         update_frame=LabelFrame(root,text="Update Records",padx=40,pady=40)
         update_frame.grid(padx=300,pady=150)
 
-        add=Button(update_frame,text="New Record",padx=7)
+        add=Button(update_frame,text="New Record",padx=7,command=func)
         add.grid(row=0,column=0,padx=20,pady=15)
 
         edit=Button(update_frame,text="Edit Record",padx=10)
