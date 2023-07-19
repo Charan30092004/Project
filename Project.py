@@ -10,7 +10,7 @@ from tkinter import messagebox
 
 from userdetails import *
 from AdditionalFunctions import checkPhoneNumber
-root=ttk.Window(themename="superhero")
+root=ttk.Window(themename="superhero")#superhero#litera#darkly
 
 
 def personalWindow():

@@ -106,4 +106,3 @@ def getNumber():
 
 
     root.mainloop()
-getNumber()
