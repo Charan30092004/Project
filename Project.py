@@ -5,11 +5,12 @@ import Personal as P
 from PIL import Image,ImageTk
 import mysql.connector
 from Tableview import *
+from personalview import *
 from tkinter import messagebox
 
 from userdetails import *
 from AdditionalFunctions import checkPhoneNumber
-root=ttk.Window()
+root=ttk.Window(themename="superhero")
 
 
 def personalWindow():
@@ -70,7 +71,7 @@ def personalWindow():
             if(useridvalue in userlogindetails):
                 index=userlogindetails.index(useridvalue)
                 if(passwdvalue == passwdlogindetails[index]):
-                    pass
+                    getNumber()
                 else:
                     messagebox.showerror("Access Denied","Entered a Wrong Password")
             else:

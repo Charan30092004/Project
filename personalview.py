@@ -1,9 +1,12 @@
 from tkinter import *
+from tkinter import messagebox
 import mysql.connector
+import ttkbootstrap as ttk
+
 
 
 def showdetails(vdata):
-    root=Toplevel()
+    root=Tk()
     name=vdata[1]
     vehicle=vdata[2]
     model=vdata[3]
@@ -78,10 +81,29 @@ for i in data:
 
 def getNumber():
     root=Tk()
-    vno="TN10A5678"
-    if(vno in vehiclenos):
+    root.title("Entry Field")
 
-        showdetails(data[vehiclenos.index(vno)])
+    def submit():
+        sub1=value.get()
+        root.destroy()
+        print(sub1)
+        if(sub1 in vehiclenos):
+            showdetails(data[vehiclenos.index(sub1)])
+        else:
+            messagebox.showerror("Invalid Number",f'{sub1} is not registered yet !')
+
+        
+    root.geometry("600x450")
+    lab=Label(root,text="VEHICLE NUMBER: ",width=20).grid(row=0,column=0,padx=40,pady=(200,40))
+
+    global value
+    v_no=StringVar(value='TN00*0000')
+    value=ttk.Entry(root,textvariable=v_no,width=25)
+    value.grid(row=0,column=1,columnspan=2,pady=(200,40))
+
+    sub=Button(root,text="SUBMIT",width=20,command=submit)
+    sub.grid(row=1,column=1,columnspan=2)
+
 
     root.mainloop()
 getNumber()
