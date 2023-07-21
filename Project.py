@@ -7,10 +7,13 @@ import mysql.connector
 from Tableview import *
 from personalview import *
 from tkinter import messagebox
+from updatedetails import *
+from chart import *
 
 from userdetails import *
 from AdditionalFunctions import checkPhoneNumber
 root=ttk.Window(themename="superhero")#superhero#litera#darkly
+#root=Tk()
 
 
 def personalWindow():
@@ -181,7 +184,7 @@ def offical_login(index):
         table=Button(viewdetails_frame,text="Tables",padx=18,command=lambda : tableview(userid_value))
         table.grid(row=0,column=0,padx=20,pady=15)
 
-        chart=Button(viewdetails_frame,text="Chart",padx=20)
+        chart=Button(viewdetails_frame,text="Chart",padx=20,command= lambda : graph(userid_value))
         chart.grid(row=1,column=0,padx=20,pady=15)
 
         back=Button(viewdetails_frame,text="Back",padx=22,command=backfun)
@@ -215,7 +218,12 @@ def offical_login(index):
         add=Button(update_frame,text="New Record",padx=7,command=func)
         add.grid(row=0,column=0,padx=20,pady=15)
 
-        edit=Button(update_frame,text="Edit Record",padx=10)
+
+        def updatecallingfunction():
+            update_frame.destroy()
+            updatefunction(userid_value,root)
+
+        edit=Button(update_frame,text="Edit Record",padx=10,command= updatecallingfunction)
         edit.grid(row=1,column=0,padx=20,pady=15)
 
         back=Button(update_frame,text="Back",padx=26,command=backfun)
